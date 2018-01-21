@@ -6,7 +6,7 @@ export default class Grid extends Component {
     render() {
         var rows=[];
         this.props.tasks.forEach(
-            item=>rows.push(<RowItem id={item.id} task={item}/>)
+            item=>rows.push(<RowItem key={item.id} task={item}/>)
         )
 
         return (

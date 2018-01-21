@@ -17,3 +17,7 @@
     color: lightgrey;
     float: right;
 } 
+
+.GriedHeader.activeSorting{
+    color:darkgray;
+}
