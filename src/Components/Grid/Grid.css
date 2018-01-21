@@ -1,0 +1,19 @@
+.Grid-fieldset
+{
+    border: 3px solid lightgrey;
+    padding: 5px;
+    display:inline-block;
+    margin:5px;
+}
+
+.GridTable table,
+.GridTable th,
+.GridTable td{
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.GridHeader span{
+    color: lightgrey;
+    float: right;
+} 
