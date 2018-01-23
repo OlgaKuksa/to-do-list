@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import './AddTask.css'
-
-//import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 
 export default class AddTask extends Component {
     render() {
         return (
             <fieldset className='AddTask-fieldset'>
                 <legend><strong>{this.props.legend}</strong></legend>
-        <form>
+        <form name={this.props.name}>
             <input type="text" placeholder="Title" className='AddTask-title'/>
             <label>Priority:
             <select name="priority" className='AddTask-priority'>
@@ -29,3 +28,8 @@ export default class AddTask extends Component {
     )
     }
 };
+
+AddTask.propTypes={
+    name: PropTypes.string,
+    legend: PropTypes.string
+}
