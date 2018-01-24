@@ -25,7 +25,7 @@ export default class AddTask extends Component {
         <form onSubmit={this.onSubmit.bind(this)}>
             <input type="text" placeholder="Title" className='AddTask-title' name='title'/>
             <label>Priority:
-            <select name="priority" className='AddTask-priority' name='priority'>
+            <select name="priority" className='AddTask-priority' name='priority' defaultValue={'2'}>
             <option value="major">Major</option>
             <option value="medium">Medium</option>
             <option value="minor">Minor</option>

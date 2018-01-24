@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import AddTask from '../AddTask';
 import Filter from '../Filter';
 import Grid from '../Grid'
-import { getTasks, addTask } from '../../Utils/ApiWrapper'
+import {getTasks, addTask, removeTask} from '../../Utils/ApiWrapper'
 
 export default class ToDoListWrapper extends Component {
     state = {
@@ -19,11 +19,18 @@ export default class ToDoListWrapper extends Component {
         ))
     }
 
+    removeTask=(id)=>{
+        removeTask(id).then(()=>this.setState(
+            {
+                tasks:this.state.tasks.filter(item=>item.id!==id)
+            }
+        ))
+    }
     render() {
         return (<div>
-            <AddTask legend="Add task" name='TaskForm' onSubmit={this.addTask} />
+            <AddTask legend="Add task" name='TaskForm' onSubmit={this.addTask}/>
             <Filter legend="Filter" />
-            <Grid legend='Tasks' tasks={this.state.tasks} />
+            <Grid legend='Tasks' tasks={this.state.tasks} removeTask={this.removeTask}/>
         </div>
         )
     }

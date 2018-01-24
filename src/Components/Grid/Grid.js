@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import RowItem from './RowItem'
-import './Grid.css'
+import RowItem from './RowItem';
+import PropTypes from 'prop-types';
+import './Grid.css';
 
 export default class Grid extends Component {
     render() {
@@ -20,10 +21,11 @@ export default class Grid extends Component {
                         <th>Title <span>▲</span><span>▼</span></th>
                         <th>Priority <span>▲</span><span>▼</span></th>
                         <th>Date <span>▲</span><span>▼</span></th>
+                        <th>Remove</th>
                         </tr>
                 </thead>
                 <tbody>
-                        {rows}  
+                        {this.props.tasks.map((task)=><RowItem key={task.id} task={task} removeTask={this.props.removeTask}/>)}  
                 </tbody>
             </table>
             </fieldset>
@@ -31,3 +33,9 @@ export default class Grid extends Component {
         );
     }
 };
+
+Grid.propTypes=
+{
+    tasks:PropTypes.array,
+    removeTasks:PropTypes.func
+}

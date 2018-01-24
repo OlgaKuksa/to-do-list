@@ -39,5 +39,11 @@ export const addTask=data=>{
     let task={...data, id:getId()};
     tasks.push(task);
     saveTasks();
-    return new Promise(resolve=>setTimeout(resolve, 2000, task))
+    return new Promise(resolve=>setTimeout(resolve, 0, task))
+}
+
+export const removeTask=id=>{
+    tasks=tasks.filter(item=>item.id!==id);
+    saveTasks();
+    return new Promise(resolve=>setTimeout(resolve,0,id))
 }
