@@ -3,25 +3,40 @@ import './AddTask.css'
 import PropTypes from 'prop-types'
 
 export default class AddTask extends Component {
+    onSubmit(ev){
+        ev.preventDefault();
+        let formData=[...ev.target.querySelectorAll('[name]')]
+        .reduce((hash, item)=>(
+            
+                {
+                    ...hash,
+                    [item.getAttribute('name')]:item.value
+                }
+            )
+        );
+    this.props.onSubmit(formData);
+    ev.target.reset();
+    }
+
     render() {
         return (
             <fieldset className='AddTask-fieldset'>
                 <legend><strong>{this.props.legend}</strong></legend>
-        <form name={this.props.name}>
-            <input type="text" placeholder="Title" className='AddTask-title'/>
+        <form onSubmit={this.onSubmit.bind(this)}>
+            <input type="text" placeholder="Title" className='AddTask-title' name='title'/>
             <label>Priority:
-            <select name="priority" className='AddTask-priority'>
+            <select name="priority" className='AddTask-priority' name='priority'>
             <option value="major">Major</option>
             <option value="medium">Medium</option>
             <option value="minor">Minor</option>
             </select>
             </label>
-            <input type="date" defaultValue={new Date().toISOString().substring(0, 10)} className='AddTask-datepicker'/>
+            <input type="date" defaultValue={new Date().toISOString().substring(0, 10)} className='AddTask-datepicker' name='date'/>
         <div>
-            <textarea placeholder="Description" wrap='hard' className='AddTask-textarea'/>
+            <textarea placeholder="Description" wrap='hard' className='AddTask-textarea' name='description'/>
             </div>
             <div>
-                <input type="button" value="Add" className='AddTask-addbtn'/>
+                <input type="submit" value="Add" className='AddTask-addbtn'/>
                 </div>
         </form>
         </fieldset>
@@ -30,6 +45,5 @@ export default class AddTask extends Component {
 };
 
 AddTask.propTypes={
-    name: PropTypes.string,
     legend: PropTypes.string
 }

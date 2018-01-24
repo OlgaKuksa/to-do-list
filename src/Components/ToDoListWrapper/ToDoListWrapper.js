@@ -13,9 +13,13 @@ export default class ToDoListWrapper extends Component {
         getTasks().then((tasks)=>this.setState({tasks}))
     }
 
+    addTask=(taskData)=>{
+        console.log(taskData)
+    }
+
     render() {
         return (<div>
-            <AddTask legend="Add task" name='TaskForm' />
+            <AddTask legend="Add task" name='TaskForm' onSubmit={this.addTask} />
             <Filter legend="Filter" />
             <Grid legend='Tasks' tasks={this.state.tasks} />
         </div>
