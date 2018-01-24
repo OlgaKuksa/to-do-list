@@ -12,7 +12,7 @@ export default class AddTask extends Component {
                     ...hash,
                     [item.getAttribute('name')]:item.value
                 }
-            )
+            ), {}
         );
     this.props.onSubmit(formData);
     ev.target.reset();

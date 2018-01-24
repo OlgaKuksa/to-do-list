@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import AddTask from '../AddTask';
 import Filter from '../Filter';
 import Grid from '../Grid'
-import { getTasks } from '../../Utils/ApiWrapper'
+import { getTasks, addTask } from '../../Utils/ApiWrapper'
 
 export default class ToDoListWrapper extends Component {
     state = {
@@ -14,7 +14,9 @@ export default class ToDoListWrapper extends Component {
     }
 
     addTask=(taskData)=>{
-        console.log(taskData)
+        addTask(taskData).then((taskData)=>this.setState(
+            {tasks:[...this.state.tasks, taskData]}
+        ))
     }
 
     render() {
