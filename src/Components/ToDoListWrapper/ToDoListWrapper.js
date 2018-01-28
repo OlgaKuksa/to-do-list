@@ -20,11 +20,12 @@ export default class ToDoListWrapper extends Component {
     }
 
     removeTask=(id)=>{
-        removeTask(id).then(()=>this.setState(
+        let tasks=this.state.tasks;
+        this.setState(
             {
                 tasks:this.state.tasks.filter(item=>item.id!==id)
-            }
-        ))
+            });
+        removeTask(id).catch(()=>this.setState({tasks}))
     }
     render() {
         return (<div>
