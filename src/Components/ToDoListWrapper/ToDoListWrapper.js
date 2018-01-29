@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import AddTask from '../AddTask';
 import Filter from '../Filter';
 import Grid from '../Grid'
-import {getTasks, addTask, removeTask} from '../../Utils/ApiWrapper'
+import {getTasks, addTask, removeTask, updateTask} from '../../Utils/ApiWrapper'
 
 export default class ToDoListWrapper extends Component {
     state = {
@@ -27,11 +27,23 @@ export default class ToDoListWrapper extends Component {
             });
         removeTask(id).catch(()=>this.setState({tasks}))
     }
+
+    updateTask=(id, changes)=>{
+        updateTask(id,changes).then((updatedItem)=>this.setState(
+            {
+                tasks:this.state.tasks.map(item=>item.id!==id?item:{
+                    ...item,
+                    ...updatedItem
+                })
+            }
+        ))
+    }
+
     render() {
         return (<div>
             <AddTask legend="Add task" name='TaskForm' onSubmit={this.addTask}/>
             <Filter legend="Filter" />
-            <Grid legend='Tasks' tasks={this.state.tasks} removeTask={this.removeTask}/>
+            <Grid legend='Tasks' tasks={this.state.tasks} removeTask={this.removeTask} updateTask={this.updateTask}/>
         </div>
         )
     }

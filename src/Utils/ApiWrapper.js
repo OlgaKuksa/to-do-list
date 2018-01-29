@@ -47,3 +47,14 @@ export const removeTask=id=>{
     saveTasks();
     return new Promise(resolve=>setTimeout(resolve,0,id))
 }
+
+export const updateTask=(id, changes)=>{
+    tasks=tasks.map(item=>item.id!==id?item:{
+        ...item,
+        ...changes
+    });
+    saveTasks();
+    return new Promise((resolve)=>setTimeout(resolve, 0,{
+        ...tasks.find(item=>item.id===id)
+    }))
+}
