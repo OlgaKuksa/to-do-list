@@ -13,6 +13,7 @@ export default class RowItem extends Component {
                 this.changeTaskProp('isDone',ev.target.checked)
                 }/></td>
                 <td>{task.title}</td>
+                <td>{task.description}</td>
                 <td>{task.priority}</td>
                 <td>{task.date}</td>
                 <td><button onClick={()=>removeTask(task.id)}>X</button></td>

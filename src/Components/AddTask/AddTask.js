@@ -25,10 +25,10 @@ export default class AddTask extends Component {
         <form onSubmit={this.onSubmit.bind(this)}>
             <input type="text" placeholder="Title" className='AddTask-title' name='title'/>
             <label>Priority:
-            <select name="priority" className='AddTask-priority' name='priority' defaultValue={'2'}>
-            <option value="major">Major</option>
-            <option value="medium">Medium</option>
-            <option value="minor">Minor</option>
+            <select name="priority" className='AddTask-priority' name='priority' defaultValue={'2'} defaultSelectedValue={2}>
+            <option value="Urgent">Urgent</option>
+            <option value="Normal">Normal</option>
+            <option value="Low">Low</option>
             </select>
             </label>
             <input type="date" defaultValue={new Date().toISOString().substring(0, 10)} className='AddTask-datepicker' name='date'/>

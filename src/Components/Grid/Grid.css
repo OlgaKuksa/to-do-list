@@ -18,6 +18,14 @@
     float: right;
 } 
 
-.GriedHeader.activeSorting{
+.GridHeader.activeSorting{
     color:darkgray;
+}
+
+.noSortBtn{
+    background-color:grey;
+}
+
+.sortBtn{
+    background-color:whitesmoke;
 }
