@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './Filter.css'
 
-export default class Filter extends Component {
+class Filter extends Component {
     render() {
         return (
             <div>
@@ -9,7 +10,8 @@ export default class Filter extends Component {
                     <legend><strong>{this.props.legend}</strong></legend>
                     <form>
                         <label className="Filter-isCompletedCb">
-                            <input type="checkbox" name="isCompletedShown" />Show completed
+                            <input type="checkbox" name="isCompletedShown" checked={this.props.filter.showCompleted} 
+                            onChange={(ev)=>{this.props.onFilterUpdate({showCompleted:ev.target.checked})}}/>Show completed
                         </label>
                         <input type="date" name="fromDate" className="Filter-DatePicker" />
                         <input type="date" name="toDate" className="Filter-DatePicker"/>
@@ -21,4 +23,12 @@ export default class Filter extends Component {
             </div>
         )
     }
-}
+};
+
+Filter.propTypes={
+    onFilterUpdate:PropTypes.func,
+    filter:PropTypes.object
+};
+
+
+export default Filter;

@@ -6,7 +6,10 @@ import {getTasks, addTask, removeTask, updateTask} from '../../Utils/ApiWrapper'
 
 export default class ToDoListWrapper extends Component {
     state = {
-        tasks: []
+        tasks: [],
+        filter:{
+            showCompleted:true
+        }
     }
 
     componentWillMount(){
@@ -39,11 +42,26 @@ export default class ToDoListWrapper extends Component {
         ))
     }
 
+    onFilterUpdate=(changes)=>{
+        this.setState({
+            filter:{
+                ...this.state.filter,
+                ...changes
+            }
+        })
+    }
+
     render() {
+        const {
+            tasks,
+            filter,
+            filter:{showCompleted}}=this.state;
+        
+        const filteredTasks=showCompleted?tasks:tasks.filter((item)=>!item.isDone)
         return (<div>
             <AddTask legend="Add task" name='TaskForm' onSubmit={this.addTask}/>
-            <Filter legend="Filter" />
-            <Grid legend='Tasks' tasks={this.state.tasks} removeTask={this.removeTask} updateTask={this.updateTask}/>
+            <Filter legend="Filter" filter={filter} onFilterUpdate={this.onFilterUpdate}/>
+            <Grid legend='Tasks' tasks={filteredTasks} removeTask={this.removeTask} updateTask={this.updateTask}/>
         </div>
         )
     }
