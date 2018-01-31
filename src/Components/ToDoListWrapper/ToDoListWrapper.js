@@ -57,7 +57,10 @@ export default class ToDoListWrapper extends Component {
             filter,
             filter:{showCompleted}}=this.state;
         
-        const filteredTasks=showCompleted?tasks:tasks.filter((item)=>!item.isDone)
+        let filteredTasks=showCompleted?tasks:tasks.filter((item)=>!item.isDone);
+        filteredTasks=filter.dateFrom?filteredTasks.filter((item)=>item.date>=filter.dateFrom):filteredTasks&&
+        filter.dateTo?filteredTasks.filter((item)=>item.date<=filter.dateTo):filteredTasks;
+        filteredTasks=filter.text?filteredTasks.filter((item)=>item.title.includes(filter.text)||item.description.includes(filter.text)):filteredTasks;
         return (<div>
             <AddTask legend="Add task" name='TaskForm' onSubmit={this.addTask}/>
             <Filter legend="Filter" filter={filter} onFilterUpdate={this.onFilterUpdate}/>

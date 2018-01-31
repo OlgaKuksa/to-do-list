@@ -13,10 +13,10 @@ class Filter extends Component {
                             <input type="checkbox" name="isCompletedShown" checked={this.props.filter.showCompleted} 
                             onChange={(ev)=>{this.props.onFilterUpdate({showCompleted:ev.target.checked})}}/>Show completed
                         </label>
-                        <input type="date" name="fromDate" className="Filter-DatePicker" />
-                        <input type="date" name="toDate" className="Filter-DatePicker"/>
+                        <input type="date" name="fromDate" className="Filter-DatePicker" onChange={(ev)=>{this.props.onFilterUpdate({dateFrom:ev.target.value})}}/>
+                        <input type="date" name="toDate" className="Filter-DatePicker" onChange={(ev)=>{this.props.onFilterUpdate({dateTo:ev.target.value})}}/>
                         <div>
-                            <input type="text" placeholder="Text search (title+description" className="Filter-TextInput"/>
+                            <input type="text" placeholder="Text search (title+description" className="Filter-TextInput" onChange={(ev)=>{this.props.onFilterUpdate({text:ev.target.value})}}/>
                         </div>
                     </form>
                 </fieldset>
