@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import './Grid.css'
+import './Grid.css';
 
 class GridHeaderItem extends Component {
     drawSortButtons() {

@@ -24,8 +24,10 @@
 
 .noSortBtn{
     background-color:grey;
+    display: inline;
 }
 
 .sortBtn{
     background-color:whitesmoke;
+    display: inline;
 }

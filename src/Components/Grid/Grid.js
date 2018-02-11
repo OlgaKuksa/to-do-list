@@ -4,6 +4,8 @@ import GridHeaderItem from "./GridHeaderItem";
 import PropTypes from "prop-types";
 import sortBy from "../../Utils/SortBy";
 import "./Grid.css";
+import {Table} from 'semantic-ui-react';
+import 'semantic-ui-css/semantic.min.css';
 
 export default class Grid extends Component {
   state = {
@@ -31,7 +33,7 @@ export default class Grid extends Component {
           <legend>
             <strong>{this.props.legend}</strong>
           </legend>
-          <table>
+          <Table celled>
             <thead>
               <tr>
                 <GridHeaderItem
@@ -62,7 +64,7 @@ export default class Grid extends Component {
                 />
               ))}
             </tbody>
-          </table>
+          </Table>
         </fieldset>
       </div>
     );
