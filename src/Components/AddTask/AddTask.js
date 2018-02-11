@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./AddTask.css";
 import PropTypes from "prop-types";
-import { Button, Form } from "semantic-ui-react";
+import { Button, Form, Message } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 
 export default class AddTask extends Component {
@@ -44,7 +44,7 @@ export default class AddTask extends Component {
             </Form.Field>
           </Form.Group>
           <Form.Field>
-            <textarea
+            <textarea className='AddTask-textarea'
               placeholder="Description"
               wrap="hard"
               className="AddTask-textarea"

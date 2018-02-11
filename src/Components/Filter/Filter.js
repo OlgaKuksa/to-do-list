@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import {Form} from 'semantic-ui-react';
+import "semantic-ui-css/semantic.min.css";
 import "./Filter.css";
 
 class Filter extends Component {
@@ -10,20 +12,21 @@ class Filter extends Component {
           <legend>
             <strong>{this.props.legend}</strong>
           </legend>
-          <form>
-            <label className="Filter-isCompletedCb">
-              <input
+          <Form>
+            <Form.Group inline>
+              <Form.Input
                 type="checkbox"
                 name="isCompletedShown"
+                label='Is Completed'
                 checked={this.props.filter.showCompleted}
                 onChange={ev => {
                   this.props.onFilterUpdate({
                     showCompleted: ev.target.checked
                   });
                 }}
-              />Show completed
-            </label>
-            <input
+              />
+         
+            <Form.Input
               type="date"
               name="fromDate"
               className="Filter-DatePicker"
@@ -31,7 +34,8 @@ class Filter extends Component {
                 this.props.onFilterUpdate({ dateFrom: ev.target.value });
               }}
             />
-            <input
+         
+            <Form.Input
               type="date"
               name="toDate"
               className="Filter-DatePicker"
@@ -39,17 +43,18 @@ class Filter extends Component {
                 this.props.onFilterUpdate({ dateTo: ev.target.value });
               }}
             />
-            <div>
-              <input
+         
+            </Form.Group>
+              <Form.Input
                 type="text"
-                placeholder="Text search (title+description"
+                placeholder="Text search (title+description)"
                 className="Filter-TextInput"
                 onChange={ev => {
                   this.props.onFilterUpdate({ text: ev.target.value });
                 }}
               />
-            </div>
-          </form>
+            
+          </Form>
         </fieldset>
       </div>
     );

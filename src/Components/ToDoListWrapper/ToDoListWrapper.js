@@ -68,7 +68,8 @@ export default class ToDoListWrapper extends Component {
       : tasks.filter(item => !item.isDone);
     filteredTasks = filter.dateFrom
       ? filteredTasks.filter(item => item.date >= filter.dateFrom)
-      : filteredTasks && filter.dateTo
+      : filteredTasks;
+      filteredTasks=filter.dateTo
         ? filteredTasks.filter(item => item.date <= filter.dateTo)
         : filteredTasks;
     filteredTasks = filter.text
