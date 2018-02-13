@@ -88,13 +88,10 @@ class ToDoListWrapper extends Component {
 };
 
 
-const mapStateToProps=(state)=>{
-  console.log(state);
-  return {
+const mapStateToProps=(state)=>({
   tasks:state.tasks,
-  filter:state.filter
-}
-};
+  filter:state.filter}
+);
 
 const mapDispatchToProps={
   addTaskAction,

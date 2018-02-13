@@ -3,8 +3,10 @@ import "./AddTask.css";
 import PropTypes from "prop-types";
 import { Button, Form, Message } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
+import {connect} from 'react-redux';
+import {addTask} from '../../actions/tasks'
 
-export default class AddTask extends Component {
+class AddTask extends Component {
   onSubmit(ev) {
     ev.preventDefault();
     let formData = [...ev.target.querySelectorAll("[name]")].reduce(
@@ -14,7 +16,7 @@ export default class AddTask extends Component {
       }),
       {}
     );
-    this.props.onSubmit(formData);
+    this.props.addTask(formData);
     ev.target.reset();
   }
 
@@ -65,3 +67,9 @@ export default class AddTask extends Component {
 AddTask.propTypes = {
   legend: PropTypes.string
 };
+
+const mapDispatchToProps={
+  addTask
+}
+
+export default connect(undefined, mapDispatchToProps)(AddTask)
