@@ -22,7 +22,7 @@ class ToDoListWrapper extends Component {
   };
 
   componentWillMount() {
-    getTasks().then(tasks => this.props.getTasksAction({ tasks }));
+    getTasks().then(tasks => this.props.getTasksAction(tasks));
   }
 
   addTask = taskData => {
@@ -32,7 +32,6 @@ class ToDoListWrapper extends Component {
   };
 
   removeTask = id => {
-    let tasks = this.state.tasks;
     removeTask(id).then(()=>this.props.removeTaskAction(id));
   };
 
@@ -68,6 +67,7 @@ class ToDoListWrapper extends Component {
             item.description.includes(filter.text)
         )
       : filteredTasks;
+     
     return (
       <div>
         <AddTask legend="Add task" name="TaskForm" onSubmit={this.addTask} />
@@ -88,10 +88,13 @@ class ToDoListWrapper extends Component {
 };
 
 
-const mapStateToProps=(state)=>({
+const mapStateToProps=(state)=>{
+  console.log(state);
+  return {
   tasks:state.tasks,
   filter:state.filter
-});
+}
+};
 
 const mapDispatchToProps={
   addTaskAction,
