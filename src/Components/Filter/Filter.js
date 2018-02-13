@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import {Form} from 'semantic-ui-react';
+import { Form } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import "./Filter.css";
+import { connect } from "react-redux";
+import { onFilterUpdate } from "../../actions/filter";
 
 class Filter extends Component {
   render() {
@@ -17,7 +19,7 @@ class Filter extends Component {
               <Form.Input
                 type="checkbox"
                 name="isCompletedShown"
-                label='Is Completed'
+                label="Is Completed"
                 checked={this.props.filter.showCompleted}
                 onChange={ev => {
                   this.props.onFilterUpdate({
@@ -25,35 +27,33 @@ class Filter extends Component {
                   });
                 }}
               />
-         
-            <Form.Input
-              type="date"
-              name="fromDate"
-              className="Filter-DatePicker"
-              onChange={ev => {
-                this.props.onFilterUpdate({ dateFrom: ev.target.value });
-              }}
-            />
-         
-            <Form.Input
-              type="date"
-              name="toDate"
-              className="Filter-DatePicker"
-              onChange={ev => {
-                this.props.onFilterUpdate({ dateTo: ev.target.value });
-              }}
-            />
-         
-            </Form.Group>
+
               <Form.Input
-                type="text"
-                placeholder="Text search (title+description)"
-                className="Filter-TextInput"
+                type="date"
+                name="fromDate"
+                className="Filter-DatePicker"
                 onChange={ev => {
-                  this.props.onFilterUpdate({ text: ev.target.value });
+                  this.props.onFilterUpdate({ dateFrom: ev.target.value });
                 }}
               />
-            
+
+              <Form.Input
+                type="date"
+                name="toDate"
+                className="Filter-DatePicker"
+                onChange={ev => {
+                  this.props.onFilterUpdate({ dateTo: ev.target.value });
+                }}
+              />
+            </Form.Group>
+            <Form.Input
+              type="text"
+              placeholder="Text search (title+description)"
+              className="Filter-TextInput"
+              onChange={ev => {
+                this.props.onFilterUpdate({ text: ev.target.value });
+              }}
+            />
           </Form>
         </fieldset>
       </div>
@@ -66,4 +66,12 @@ Filter.propTypes = {
   filter: PropTypes.object
 };
 
-export default Filter;
+const mapStateToProps = state => ({
+  filter: state.filter
+});
+
+const mapDispatchToProps = {
+  onFilterUpdate
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Filter);

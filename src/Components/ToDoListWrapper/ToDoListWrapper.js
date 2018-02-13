@@ -56,8 +56,6 @@ class ToDoListWrapper extends Component {
         <AddTask legend="Add task" name="TaskForm" />
         <Filter
           legend="Filter"
-          filter={filter}
-          onFilterUpdate={this.onFilterUpdate}
         />
         <Grid
           legend="Tasks"
