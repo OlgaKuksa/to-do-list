@@ -50,27 +50,10 @@ class ToDoListWrapper extends Component {
 
   render() {
     const { tasks, filter, filter: { showCompleted } } = this.props;
-
-    let filteredTasks = showCompleted
-      ? tasks
-      : tasks.filter(item => !item.isDone);
-    filteredTasks = filter.dateFrom
-      ? filteredTasks.filter(item => item.date >= filter.dateFrom)
-      : filteredTasks;
-      filteredTasks=filter.dateTo
-        ? filteredTasks.filter(item => item.date <= filter.dateTo)
-        : filteredTasks;
-    filteredTasks = filter.text
-      ? filteredTasks.filter(
-          item =>
-            item.title.includes(filter.text) ||
-            item.description.includes(filter.text)
-        )
-      : filteredTasks;
      
     return (
       <div>
-        <AddTask legend="Add task" name="TaskForm" onSubmit={this.addTask} />
+        <AddTask legend="Add task" name="TaskForm" />
         <Filter
           legend="Filter"
           filter={filter}
@@ -78,9 +61,6 @@ class ToDoListWrapper extends Component {
         />
         <Grid
           legend="Tasks"
-          tasks={filteredTasks}
-          removeTask={this.removeTask}
-          updateTask={this.updateTask}
         />
       </div>
     );

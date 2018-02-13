@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 export default class RowItem extends Component {
   changeTaskProp(propName, value) {
-    this.props.updateTask(this.props.task.id, { [propName]: value });
+    this.props.updateTask({ [propName]: value, id:this.props.task.id });
   }
   render() {
     const { task, removeTask } = this.props;
@@ -12,7 +12,7 @@ export default class RowItem extends Component {
         <td>
           <input
             type="checkbox"
-            checked={task.isDone}
+            checked={task.isDone||false}
             onChange={ev => this.changeTaskProp("isDone", ev.target.checked)}
           />
         </td>

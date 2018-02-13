@@ -7,7 +7,8 @@ export const addTask = taskProps => ({
   type: ADD_TASK,
   payload: {
     ...taskProps,
-    id: Date.now()
+    id: Date.now(),
+    isDone:false
   }
 });
 
