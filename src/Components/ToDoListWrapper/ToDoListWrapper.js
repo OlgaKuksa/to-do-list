@@ -8,8 +8,12 @@ import {
   removeTask,
   updateTask
 } from "../../Utils/ApiWrapper";
+import {connect} from 'react-redux';
+import {addTask as addTaskAction, getTasks as getTasksAction, updateTask as updateTaskAction, removeTask as removeTaskAction }
+from '../../actions/tasks';
+import {onFilterUpdate as onFilterUpdateAction} from '../../actions/filter';
 
-export default class ToDoListWrapper extends Component {
+class ToDoListWrapper extends Component {
   state = {
     tasks: [],
     filter: {
@@ -18,37 +22,22 @@ export default class ToDoListWrapper extends Component {
   };
 
   componentWillMount() {
-    getTasks().then(tasks => this.setState({ tasks }));
+    getTasks().then(tasks => this.props.getTasksAction({ tasks }));
   }
 
   addTask = taskData => {
     addTask(taskData).then(taskData =>
-      this.setState({ tasks: [...this.state.tasks, taskData] })
+      this.props.addTaskAction({taskData})
     );
   };
 
   removeTask = id => {
     let tasks = this.state.tasks;
-    this.setState({
-      tasks: this.state.tasks.filter(item => item.id !== id)
-    });
-    removeTask(id).catch(() => this.setState({ tasks }));
+    removeTask(id).then(()=>this.props.removeTaskAction(id));
   };
 
   updateTask = (id, changes) => {
-    updateTask(id, changes).then(updatedItem =>
-      this.setState({
-        tasks: this.state.tasks.map(
-          item =>
-            item.id !== id
-              ? item
-              : {
-                  ...item,
-                  ...updatedItem
-                }
-        )
-      })
-    );
+    updateTask(id, changes).then((updatedTask)=>updateTaskAction(updatedTask))
   };
 
   onFilterUpdate = changes => {
@@ -61,7 +50,7 @@ export default class ToDoListWrapper extends Component {
   };
 
   render() {
-    const { tasks, filter, filter: { showCompleted } } = this.state;
+    const { tasks, filter, filter: { showCompleted } } = this.props;
 
     let filteredTasks = showCompleted
       ? tasks
@@ -96,4 +85,20 @@ export default class ToDoListWrapper extends Component {
       </div>
     );
   }
-}
+};
+
+
+const mapStateToProps=(state)=>({
+  tasks:state.tasks,
+  filter:state.filter
+});
+
+const mapDispatchToProps={
+  addTaskAction,
+  getTasksAction,
+  updateTaskAction,
+  removeTaskAction,
+  onFilterUpdateAction
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ToDoListWrapper);
