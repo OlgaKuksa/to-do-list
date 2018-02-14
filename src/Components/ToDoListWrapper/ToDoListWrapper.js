@@ -2,16 +2,21 @@ import React, { Component } from "react";
 import AddTask from "../AddTask";
 import Filter from "../Filter";
 import Grid from "../Grid";
+import EditTaskModal from "../EditTaskModal";
 import {
   getTasks,
   addTask,
   removeTask,
   updateTask
 } from "../../Utils/ApiWrapper";
-import {connect} from 'react-redux';
-import {addTask as addTaskAction, getTasks as getTasksAction, updateTask as updateTaskAction, removeTask as removeTaskAction }
-from '../../actions/tasks';
-import {onFilterUpdate as onFilterUpdateAction} from '../../actions/filter';
+import { connect } from "react-redux";
+import {
+  addTask as addTaskAction,
+  getTasks as getTasksAction,
+  updateTask as updateTaskAction,
+  removeTask as removeTaskAction
+} from "../../actions/tasks";
+import { onFilterUpdate as onFilterUpdateAction } from "../../actions/filter";
 
 class ToDoListWrapper extends Component {
   state = {
@@ -26,17 +31,15 @@ class ToDoListWrapper extends Component {
   }
 
   addTask = taskData => {
-    addTask(taskData).then(taskData =>
-      this.props.addTaskAction({taskData})
-    );
+    addTask(taskData).then(taskData => this.props.addTaskAction({ taskData }));
   };
 
   removeTask = id => {
-    removeTask(id).then(()=>this.props.removeTaskAction(id));
+    removeTask(id).then(() => this.props.removeTaskAction(id));
   };
 
   updateTask = (id, changes) => {
-    updateTask(id, changes).then((updatedTask)=>updateTaskAction(updatedTask))
+    updateTask(id, changes).then(updatedTask => updateTaskAction(updatedTask));
   };
 
   onFilterUpdate = changes => {
@@ -50,28 +53,24 @@ class ToDoListWrapper extends Component {
 
   render() {
     const { tasks, filter, filter: { showCompleted } } = this.props;
-     
+
     return (
       <div>
         <AddTask legend="Add task" name="TaskForm" />
-        <Filter
-          legend="Filter"
-        />
-        <Grid
-          legend="Tasks"
-        />
+        <Filter legend="Filter" />
+        <Grid legend="Tasks" />
+        <EditTaskModal/>
       </div>
     );
   }
-};
+}
 
+const mapStateToProps = state => ({
+  tasks: state.tasks,
+  filter: state.filter,
+});
 
-const mapStateToProps=(state)=>({
-  tasks:state.tasks,
-  filter:state.filter}
-);
-
-const mapDispatchToProps={
+const mapDispatchToProps = {
   addTaskAction,
   getTasksAction,
   updateTaskAction,

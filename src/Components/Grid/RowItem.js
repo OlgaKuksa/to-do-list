@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import {setEditedTask} from '../../actions/editedTask';
+import {connect} from 'react-redux'
 
-export default class RowItem extends Component {
+class RowItem extends Component {
   changeTaskProp(propName, value) {
     this.props.updateTask({ [propName]: value, id:this.props.task.id });
   }
@@ -16,10 +18,10 @@ export default class RowItem extends Component {
             onChange={ev => this.changeTaskProp("isDone", ev.target.checked)}
           />
         </td>
-        <td>{task.title}</td>
-        <td>{task.description}</td>
-        <td>{task.priority}</td>
-        <td>{task.date}</td>
+        <td onDoubleClick={()=>this.props.setEditedTask(task)}>{task.title}</td>
+        <td onDoubleClick={()=>this.props.setEditedTask(task)}>{task.description}</td>
+        <td onDoubleClick={()=>this.props.setEditedTask(task)}>{task.priority}</td>
+        <td onDoubleClick={()=>this.props.setEditedTask(task)}>{task.date}</td>
         <td>
           <button onClick={() => removeTask(task.id)}>X</button>
         </td>
@@ -33,3 +35,11 @@ RowItem.propTypes = {
   removeTask: PropTypes.func,
   updateTask: PropTypes.func
 };
+
+
+
+const mapDispatchToProps={
+  setEditedTask
+};
+
+export default connect(undefined, mapDispatchToProps)(RowItem)

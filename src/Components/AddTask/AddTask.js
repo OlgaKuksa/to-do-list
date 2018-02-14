@@ -3,8 +3,9 @@ import "./AddTask.css";
 import PropTypes from "prop-types";
 import { Button, Form, Message } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
-import {connect} from 'react-redux';
-import {addTask} from '../../actions/tasks'
+import { connect } from "react-redux";
+import { addTask, updateTask } from "../../actions/tasks";
+import { clearTask } from "../../actions/editedTask";
 
 class AddTask extends Component {
   onSubmit(ev) {
@@ -16,7 +17,13 @@ class AddTask extends Component {
       }),
       {}
     );
-    this.props.addTask(formData);
+    if (this.props.editedTask == {} || this.props.editedTask == null) {
+      this.props.addTask(formData);
+    } else {
+      formData.id = this.props.editedTask.id;
+      this.props.updateTask(formData);
+      this.props.clearTask();
+    }
     ev.target.reset();
   }
 
@@ -28,9 +35,23 @@ class AddTask extends Component {
         </legend>
         <Form onSubmit={this.onSubmit.bind(this)}>
           <Form.Group>
-            <Form.Input type="text" placeholder="Title" name="title" />
+            <Form.Input
+              type="text"
+              placeholder="Title"
+              name="title"
+              defaultValue={
+                this.props.editedTask == null ? "" : this.props.editedTask.title
+              }
+            />
 
-            <select name="priority" defaultValue={1}>
+            <select
+              name="priority"
+              defaultValue={
+                this.props.editedTask == null
+                  ? 1
+                  : this.props.editedTask.priority
+              }
+            >
               <option value="Normal">Normal</option>
               <option value="Urgent">Urgent</option>
               <option value="Low">Low</option>
@@ -39,23 +60,33 @@ class AddTask extends Component {
             <Form.Field>
               <input
                 type="date"
-                defaultValue={new Date().toISOString().substring(0, 10)}
+                defaultValue={
+                  this.props.editedTask == null
+                    ? new Date().toISOString().substring(0, 10)
+                    : this.props.editedTask.date
+                }
                 className="AddTask-datepicker"
                 name="date"
               />
             </Form.Field>
           </Form.Group>
           <Form.Field>
-            <textarea className='AddTask-textarea'
+            <textarea
+              className="AddTask-textarea"
               placeholder="Description"
               wrap="hard"
               className="AddTask-textarea"
               name="description"
+              defaultValue={
+                this.props.editedTask == null
+                  ? ""
+                  : this.props.editedTask.description
+              }
             />
           </Form.Field>
           <div>
             <Button primary className="ui right floated button">
-              Add Task
+              {this.props.legend}
             </Button>
           </div>
         </Form>
@@ -68,8 +99,14 @@ AddTask.propTypes = {
   legend: PropTypes.string
 };
 
-const mapDispatchToProps={
-  addTask
-}
+const mapStateToProps = state => ({
+  editedTask: state.editedTask
+});
 
-export default connect(undefined, mapDispatchToProps)(AddTask)
+const mapDispatchToProps = {
+  addTask,
+  clearTask,
+  updateTask
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddTask);
